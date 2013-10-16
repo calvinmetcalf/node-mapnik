@@ -20,11 +20,11 @@ void Geometry::Initialize(Handle<Object> target) {
     NODE_SET_PROTOTYPE_METHOD(constructor, "extent", extent);
     NODE_SET_PROTOTYPE_METHOD(constructor, "type", type);
     NODE_MAPNIK_DEFINE_CONSTANT(constructor->GetFunction(),
-                                "Point",mapnik::Point)
+                                "Point",mapnik::geometry_type::types::Point)
     NODE_MAPNIK_DEFINE_CONSTANT(constructor->GetFunction(),
-                                "LineString",mapnik::LineString)
+                                "LineString",mapnik::geometry_type::types::LineString)
     NODE_MAPNIK_DEFINE_CONSTANT(constructor->GetFunction(),
-                                "Polygon",mapnik::Polygon)
+                                "Polygon",mapnik::geometry_type::types::Polygon)
     target->Set(String::NewSymbol("Geometry"),constructor->GetFunction());
 }
 
@@ -81,7 +81,7 @@ Handle<Value> Geometry::type(const Arguments& args)
 
     Geometry* g = node::ObjectWrap::Unwrap<Geometry>(args.This());
 
-    mapnik::eGeomType type = g->get()->type();
+    mapnik::geometry_type::types type = g->get()->type();
     // TODO - can we return the actual symbol?
     //return scope.Close(constructor->GetFunction()->Get(String::NewSymbol("Point")));
     return scope.Close(Integer::New(static_cast<int>(type)));

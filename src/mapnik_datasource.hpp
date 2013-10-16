@@ -4,13 +4,13 @@
 #include <v8.h>
 #include <node_object_wrap.h>
 
-#include <boost/shared_ptr.hpp>
+#include <memory>
 
 using namespace v8;
 
 namespace mapnik { class datasource; }
 
-typedef boost::shared_ptr<mapnik::datasource> datasource_ptr;
+typedef std::shared_ptr<mapnik::datasource> datasource_ptr;
 
 class Datasource: public node::ObjectWrap {
 public:

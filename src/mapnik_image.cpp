@@ -1098,7 +1098,7 @@ void Image::EIO_Composite(uv_work_t* req)
         if (closure->filters.size() > 0)
         {
             mapnik::filter::filter_visitor<mapnik::image_32> visitor(*closure->im2->this_);
-            BOOST_FOREACH(mapnik::filter::filter_type const& filter_tag, closure->filters)
+            for(auto const& filter_tag : closure->filters)
             {
                 boost::apply_visitor(visitor, filter_tag);
             }

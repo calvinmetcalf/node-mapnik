@@ -1,4 +1,3 @@
-
 // mapnik
 #include <mapnik/version.hpp>
 #include <mapnik/unicode.hpp>
@@ -14,9 +13,7 @@
 
 // stl
 #include <exception>
-
-// boost
-#include <boost/make_shared.hpp>
+#include <memory>
 
 Persistent<FunctionTemplate> MemoryDatasource::constructor;
 
@@ -89,7 +86,7 @@ Handle<Value> MemoryDatasource::New(const Arguments& args)
     //memory_datasource cache;
     MemoryDatasource* d = new MemoryDatasource();
     d->Wrap(args.This());
-    d->datasource_ = boost::make_shared<mapnik::memory_datasource>();
+    d->datasource_ = std::make_shared<mapnik::memory_datasource>();
     return args.This();
 }
 
@@ -235,10 +232,10 @@ Handle<Value> MemoryDatasource::add(const Arguments& args)
         Local<Value> y = obj->Get(String::New("y"));
         if (!x->IsUndefined() && x->IsNumber() && !y->IsUndefined() && y->IsNumber())
         {
-            mapnik::geometry_type * pt = new mapnik::geometry_type(mapnik::Point);
+            mapnik::geometry_type * pt = new mapnik::geometry_type(mapnik::geometry_type::types::Point);
             pt->move_to(x->NumberValue(),y->NumberValue());
 #if MAPNIK_VERSION >= 200100
-            mapnik::context_ptr ctx = boost::make_shared<mapnik::context_type>();
+            mapnik::context_ptr ctx = std::make_shared<mapnik::context_type>();
             mapnik::feature_ptr feature(mapnik::feature_factory::create(ctx,d->feature_id_));
 #else
             mapnik::feature_ptr feature(mapnik::feature_factory::create(d->feature_id_));

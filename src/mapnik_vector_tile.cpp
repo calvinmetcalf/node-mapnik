@@ -364,7 +364,7 @@ static void layer_to_geojson(mapnik::vector::tile_layer const& layer,
         {
             std::size_t key_name = f.tags(m);
             std::size_t key_value = f.tags(m + 1);
-    
+
             if (key_name < static_cast<std::size_t>(layer.keys_size())
                 && key_value < static_cast<std::size_t>(layer.values_size()))
             {
@@ -1000,14 +1000,14 @@ template <typename Renderer> void process_layers(Renderer & ren,
             {
                 mapnik::vector::tile_layer const& layer = tiledata.layers(tile_layer_idx);
                 mapnik::layer lyr_copy(lyr);
-                boost::shared_ptr<mapnik::vector::tile_datasource> ds = boost::make_shared<
-                                                mapnik::vector::tile_datasource>(
-                                                    layer,
-                                                    closure->d->x_,
-                                                    closure->d->y_,
-                                                    closure->d->z_,
-                                                    closure->d->width()
-                                                    );
+                std::shared_ptr<mapnik::vector::tile_datasource> ds = std::make_shared<
+                mapnik::vector::tile_datasource>(
+                    layer,
+                    closure->d->x_,
+                    closure->d->y_,
+                    closure->d->z_,
+                    closure->d->width()
+                    );
                 ds->set_envelope(m_req.get_buffered_extent());
                 lyr_copy.set_datasource(ds);
                 std::set<std::string> names;
@@ -1096,14 +1096,14 @@ void VectorTile::EIO_RenderTile(uv_work_t* req)
                     }
 
                     mapnik::layer lyr_copy(lyr);
-                    boost::shared_ptr<mapnik::vector::tile_datasource> ds = boost::make_shared<
-                                                    mapnik::vector::tile_datasource>(
-                                                        layer,
-                                                        closure->d->x_,
-                                                        closure->d->y_,
-                                                        closure->d->z_,
-                                                        closure->d->width_
-                                                        );
+                    std::shared_ptr<mapnik::vector::tile_datasource> ds = std::make_shared<
+                    mapnik::vector::tile_datasource>(
+                        layer,
+                        closure->d->x_,
+                        closure->d->y_,
+                        closure->d->z_,
+                        closure->d->width_
+                        );
                     ds->set_envelope(m_req.get_buffered_extent());
                     lyr_copy.set_datasource(ds);
                     ren.apply_to_layer(lyr_copy,

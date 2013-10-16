@@ -47,7 +47,7 @@ Feature::Feature(int id) :
     this_() {
 #if MAPNIK_VERSION >= 200100
     // TODO - accept/require context object to reused
-    ctx_ = boost::make_shared<mapnik::context_type>();
+    ctx_ =  std::make_shared<mapnik::context_type>();
     this_ = mapnik::feature_factory::create(ctx_,id);
 #else
     this_ = mapnik::feature_factory::create(id);
@@ -133,8 +133,8 @@ Handle<Value> Feature::attributes(const Arguments& args)
     mapnik::feature_impl::iterator end = feature->end();
     for ( ;itr!=end; ++itr)
     {
-        node_mapnik::params_to_object serializer( feat , boost::get<0>(*itr));
-        boost::apply_visitor( serializer, boost::get<1>(*itr).base() );
+        node_mapnik::params_to_object serializer( feat ,std::get<0>(*itr));
+        boost::apply_visitor( serializer, std::get<1>(*itr).base() );
     }
 #else
     std::map<std::string,mapnik::value> const& fprops = fp->get()->props();

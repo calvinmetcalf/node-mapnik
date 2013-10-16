@@ -138,7 +138,7 @@ public:
                         {
                             mapnik::geometry_type * pt = new mapnik::geometry_type(mapnik::Point);
                             pt->move_to(x->NumberValue(),y->NumberValue());
-                            mapnik::context_ptr ctx = boost::make_shared<mapnik::context_type>();
+                            mapnik::context_ptr ctx = std::make_shared<mapnik::context_type>();
                             mapnik::feature_ptr feature(mapnik::feature_factory::create(ctx,feature_id_));
                             ++feature_id_;
                             feature->add_geometry(pt);
