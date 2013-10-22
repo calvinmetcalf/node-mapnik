@@ -104,7 +104,9 @@
               '<!@(pkg-config protobuf --cflags)'
           ],
           'GCC_ENABLE_CPP_RTTI': 'YES',
-          'GCC_ENABLE_CPP_EXCEPTIONS': 'YES'
+          'GCC_ENABLE_CPP_EXCEPTIONS': 'YES',
+          'CLANG_CXX_LANGUAGE_STANDARD':'c++11',
+          'MACOSX_DEPLOYMENT_TARGET':'10.7'
       },
       'msvs_settings': {
           'VCCLCompilerTool': {
