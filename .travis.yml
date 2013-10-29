@@ -8,7 +8,7 @@ node_js:
 before_install:
  - sudo apt-add-repository --yes ppa:mapnik/nightly-trunk
  - sudo apt-get update -qq
- - sudo apt-get -qq install libprotobuf7 libprotobuf-dev protobuf-compiler
+ - sudo apt-get -qq install libprotobuf7 libprotobuf-dev protobuf-compiler gcc g++
 
 install:
  - npm install mocha sphericalmercator
